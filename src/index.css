@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+@theme { --font-mono: "VT323", ui-monospace, SFMono-Regular, monospace; }
+
+body { background-color: #050505; color: #e0e0e0; overflow-x: hidden; font-family: var(--font-mono); font-size: 1.2rem; }
+.crt { position: relative; }
+.crt::before {
+  content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 50; background-size: 100% 4px, 6px 100%; pointer-events: none;
+}
+@keyframes scanline { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
+.scanline { width: 100%; height: 15px; background: rgba(0, 255, 255, 0.2); position: absolute; z-index: 40; opacity: 0.5; animation: scanline 8s linear infinite; pointer-events: none; }
+@keyframes glitch {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 1px); }
+  60% { clip-path: inset(15% 0 75% 0); transform: translate(-2px, -1px); }
+  80%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
+.glitch-fx { position: relative; display: inline-block; }
+.glitch-fx::before, .glitch-fx::after { content: attr(data-text); position: absolute; top: 0; left: 0; color: transparent; pointer-events: none; }
+.glitch-fx::before { left: 3px; text-shadow: -2px 0 cyan; animation: glitch 2s infinite linear alternate-reverse; }
+.glitch-fx::after { left: -3px; text-shadow: 2px 0 magenta; animation: glitch 3.5s infinite linear alternate-reverse; }
+.glitch-text-static { text-shadow: 2px 0 cyan, -2px 0 magenta; }
+.glitch-layer { animation: glitch 0.5s infinite linear alternate-reverse; }
